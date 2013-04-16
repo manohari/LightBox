@@ -5,68 +5,45 @@ function Lightbox(divId,imageArray) {
 }
 
 Lightbox.prototype.init = function() {
-	var docFrag,i,parentDiv,newDiv,imgEle,imgDiv,imgLength,attributes;
+	var docFrag,i,parentDiv,newDiv,imgEle,imgDiv,imgLength,attributes,_this=this;
+	
 	imgLength = this.imageArray.length;
 	parentDiv = document.getElementById(this.divId);
-	newDiv = this.createElement('div', {
-		'class':'set',
-		'id' :'set'
-	});
+	newDiv = document.createElement('div');
+	newDiv.className = 'set';
+	newDiv.id = 'set';
 	parentDiv.appendChild(newDiv);
 	attributes = {
-			'class':'single',
-			'id' :'single'
-	}	
-	for (i = 0; i < imgLength; i+= 1) {			
-				
-		imgDiv = this.createElement('div', attributes);
+			'className':'single'
+		}	
+	for (i = 0; i < imgLength; i+= 1) {				
+		imgDiv = document.createElement('div');
+		imgDiv.className = 'single';
+		imgDiv.id = 'single';
 		newDiv.appendChild(imgDiv);
-		imgEle = this.createElement('img', {
-		'src':this.imageArray[i]+'.jpg'
-		});
-		imgDiv.appendChild(imgEle);		
-		
-	}		
-	 this.build();   
-};
-Lightbox.prototype.build = function() {
-	var $lightbox;
-    overlay = this.createOverlay();      
-};
-Lightbox.prototype.createOverlay = function() {
-	var docFrag;
-	docFrag = document.createDocumentFragment();
-	docFrag.appendChild(this.createElement('div', {
-		'id':'lightboxOverlay'
-	}));
-	docFrag.appendChild(this.createElement('div', {
-		'id':'lightbox'
-	}));
-	docFrag.appendChild(this.createElement('div', {
-		'id':'lb-outerContainer'
-	}));
-	docFrag.appendChild(this.createElement('div', {
-		'id':'lb-Container'
-	}));
-	docFrag.appendChild(this.createElement('div', {
-		'id':'lb-Container'
-	}));
-	docFrag.appendChild(this.createElement('img', {
-		'id':'lb-image'
-	}));
+		imgEle = document.createElement('img');
+		imgEle.src = this.imageArray[i]+'.jpg';
+		imgEle.className = 'thumbnail';
+		imgEle.addEventListener('click', _this.createOverlay);
+		imgDiv.appendChild(imgEle);
+	}
 	
-	document.body.appendChild(docFrag);
-	
+   
 };
 
-Lightbox.prototype.createElement = function (htmlEntity,attributes) {
-	var elVar, ind;
-    elVar = document.createElement(htmlEntity);
-    if(attributes) {
-        for (ind in attributes) {
-            elVar[ind] = attributes[ind];
-        }
-    }
-    return elVar;
+
+Lightbox.prototype.createOverlay = function() {
+	var thumbnail,imageTag,overlay;
+	thumbnail = this;
+    overlay = document.createElement('div');
+  	overlay.className = 'overlayElement';
+  	document.body.appendChild(overlay);
+    imageTag = document.createElement('img');
+    imageTag.className = 'overlayImage';
+    imageTag.src = thumbnail.src;
+  	overlay.appendChild(imageTag);
+  	overlay.addEventListener('click',function(){
+    document.body.removeChild(overlay)  });
+	
 };
 
