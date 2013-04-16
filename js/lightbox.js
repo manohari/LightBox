@@ -22,28 +22,37 @@ Lightbox.prototype.init = function() {
 		imgDiv.id = 'single';
 		newDiv.appendChild(imgDiv);
 		imgEle = document.createElement('img');
-		imgEle.src = this.imageArray[i]+'.jpg';
+		imgEle.src = this.imageArray[i];
 		imgEle.className = 'thumbnail';
 		imgEle.addEventListener('click', _this.createOverlay);
 		imgDiv.appendChild(imgEle);
 	}
-	
-   
 };
-
-
 Lightbox.prototype.createOverlay = function() {
-	var thumbnail,imageTag,overlay;
+	var thumbnail,imageTag,overlay,imageDiv,closeDiv,anchorEle,textNode;
 	thumbnail = this;
     overlay = document.createElement('div');
   	overlay.className = 'overlayElement';
-  	document.body.appendChild(overlay);
+  	document.body.appendChild(overlay);  	
+  	imageDiv = document.createElement('div');
+  	imageDiv.className = 'lightbox';
+  	document.body.appendChild(imageDiv);
     imageTag = document.createElement('img');
-    imageTag.className = 'overlayImage';
     imageTag.src = thumbnail.src;
-  	overlay.appendChild(imageTag);
-  	overlay.addEventListener('click',function(){
-    document.body.removeChild(overlay)  });
+  	imageDiv.appendChild(imageTag);
+  	closeDiv = document.createElement('div');
+  	closeDiv.className = 'close';
+  	imageDiv.appendChild(closeDiv);
+  	anchorEle = document.createElement('a');
+  	anchorEle.className = 'closeCss';
+  	anchorEle.href = '#';
+  	textNode = document.createTextNode('X');
+  	anchorEle.appendChild(textNode);
+  	closeDiv.appendChild(anchorEle);
+  	anchorEle.addEventListener('click',function(){
+    	document.body.removeChild(imageDiv);
+    	document.body.removeChild(overlay);
+    });
 	
 };
 
