@@ -16,7 +16,7 @@ Lightbox.prototype.init = function() {
 	attributes = {
 			'class':'single',
 			'id' :'single'
-		}	
+	}	
 	for (i = 0; i < imgLength; i+= 1) {			
 				
 		imgDiv = this.createElement('div', attributes);
@@ -24,25 +24,15 @@ Lightbox.prototype.init = function() {
 		imgEle = this.createElement('img', {
 		'src':this.imageArray[i]+'.jpg'
 		});
-		imgDiv.appendChild(imgEle);
+		imgDiv.appendChild(imgEle);		
 		
-		
-		}
-		
-		
-	 return this.build();
-	
-	
-   
+	}		
+	 this.build();   
 };
-
-
-
 Lightbox.prototype.build = function() {
 	var $lightbox;
     overlay = this.createOverlay();      
 };
-
 Lightbox.prototype.createOverlay = function() {
 	var docFrag;
 	docFrag = document.createDocumentFragment();
