@@ -12,23 +12,10 @@
 	Images
 </div>
 <div id="content">
-<div class="section" id="example">	
+<div class="section" id="images">	
 	<h3 style="clear: both;">Image set</h3>
-  <div class="imageRow">
-  	<div class="set">
-  	  <div class="single first">
-  		  <a href="images/image-3.jpg" rel="lightbox[plants]" title="Click on the right side of the image to move forward."><img src="images/thumb-3.jpg" alt="Plants: image 1 0f 4 thumb" /></a>
-  		</div>
-      <div class="single">
-  		  <a href="images/image-4.jpg" rel="lightbox[plants]" title="Alternately you can press the right arrow key." ><img src="images/thumb-4.jpg" alt="Plants: image 2 0f 4 thumb" /></a>
-      </div>
-      <div class="single">
-  		  <a href="images/image-5.jpg" rel="lightbox[plants]" title="The script preloads the next image in the set as you're viewing."><img src="images/thumb-5.jpg" alt="Plants: image 3 0f 4 thumb" /></a>
-      </div>
-      <div class="single last">
-  		  <a href="images/image-6.jpg" rel="lightbox[plants]" title="Click the X or anywhere outside the image to close"><img src="images/thumb-6.jpg" alt="Plants: image 4 0f 4 thumb" /></a>
-      </div>
-  	</div>
+  <div class="imageRow" id="imageRow">
+  	
   </div>
 	
 </div>
@@ -37,13 +24,11 @@
 
 
 <script src="js/lightbox.js"></script>
-<script type="text/javascript">
+<script type="text/javascript">	
+var images = ['images/thumb-3','images/thumb-4','images/thumb-5','images/thumb-6'];
+var lightbox = new Lightbox('imageRow',images);
 
-var lightbox = new Lightbox('set');
 
-	
-	
-	
 </script>
 
 </body>

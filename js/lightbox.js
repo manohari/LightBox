@@ -1,21 +1,42 @@
-function Lightbox(divId) {
-	console.log('here');
+function Lightbox(divId,imageArray) {
+	this.divId = divId;
+	this.imageArray = imageArray;
 	this.init();
 }
 
-
 Lightbox.prototype.init = function() {
-	//this.enable();
-    return this.build();
+	var docFrag,i,parentDiv,newDiv,imgEle,imgDiv,imgLength,attributes;
+	imgLength = this.imageArray.length;
+	parentDiv = document.getElementById(this.divId);
+	newDiv = this.createElement('div', {
+		'class':'set',
+		'id' :'set'
+	});
+	parentDiv.appendChild(newDiv);
+	attributes = {
+			'class':'single',
+			'id' :'single'
+		}	
+	for (i = 0; i < imgLength; i+= 1) {			
+				
+		imgDiv = this.createElement('div', attributes);
+		newDiv.appendChild(imgDiv);
+		imgEle = this.createElement('img', {
+		'src':this.imageArray[i]+'.jpg'
+		});
+		imgDiv.appendChild(imgEle);
+		
+		
+		}
+		
+		
+	 return this.build();
+	
+	
+   
 };
 
-Lightbox.prototype.enable = function() {
-	var _this = this;
-  	return $('body').on('click', 'a[rel^=lightbox], area[rel^=lightbox]', function(e) {
-    _this.start($(e.currentTarget));
-    return false;
-  });
-};
+
 
 Lightbox.prototype.build = function() {
 	var $lightbox;
@@ -24,7 +45,6 @@ Lightbox.prototype.build = function() {
 
 Lightbox.prototype.createOverlay = function() {
 	var docFrag;
-	this.targetElement = document.body;
 	docFrag = document.createDocumentFragment();
 	docFrag.appendChild(this.createElement('div', {
 		'id':'lightboxOverlay'
