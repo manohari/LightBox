@@ -16,9 +16,9 @@ Lightbox.prototype.init = function() {
 	for (i = 0; i < imgLength; i+= 1) {				
 		imgDiv = document.createElement('div');
 		imgDiv.className = 'single';
-		imgDiv.id = 'single';
 		newDiv.appendChild(imgDiv);
 		imgEle = document.createElement('img');
+    imgEle.id = i;
 		imgEle.src = this.imageArray[i];
 		imgEle.className = 'thumbnail';
 		imgEle.addEventListener('click', function() { _this.createOverlay(this); });
@@ -41,7 +41,7 @@ Lightbox.prototype.createOverlay = function(imgObj) {
   	//leftdiv
   	leftDiv = document.createElement('div');
   	leftDiv.className = 'leftNav';
-  	leftDiv.addEventListener('mouseover',function(){_this.showLeftNavigation();});
+  	leftDiv.addEventListener('mouseover',function(){_this.showLeftNavigation(this);});
   	imageDiv.appendChild(leftDiv);
   	prev = document.createElement('a');
   	prev.className = 'prev';
@@ -55,7 +55,7 @@ Lightbox.prototype.createOverlay = function(imgObj) {
   	//rightDiv
   	rightDiv = document.createElement('div');
   	rightDiv.className = 'rightNav';
-  	rightDiv.addEventListener('mouseover',function(){_this.showRightNavigation();});
+  	rightDiv.addEventListener('mouseover',function(){_this.showRightNavigation(this);});
   	imageDiv.appendChild(rightDiv);
   	next = document.createElement('a');
   	next.className = 'next';
@@ -68,7 +68,8 @@ Lightbox.prototype.createOverlay = function(imgObj) {
   	
     imageTag = document.createElement('img');
     imageTag.src = imgObj.src;
-  	imageDiv.appendChild(imageTag);  
+    imageTag.className = imgObj.id;
+  	imageDiv.appendChild(imageTag);
   	
   	closeDiv = document.createElement('div');
   	imageDiv.appendChild(closeDiv);
@@ -88,24 +89,47 @@ Lightbox.prototype.close = function() {
 	}	
 };
 
-Lightbox.prototype.prev = function(obj) {	
-	var _this = this;
-	console.log(this);
-	
-}
-Lightbox.prototype.next = function() {
-}
+Lightbox.prototype.prev = function(prevbtn) {
+	var imageElement,newElement;
+	imageElement = prevbtn.parentElement.nextSibling.nextSibling;
+  	currentId = imageElement.className;
+  	if (currentId > 0 ) {
+    	document.getElementById('prev').style.display='none';
+   		newElement = document.getElementById(Number(currentId)-1);
+  		imageElement.src = newElement.src;
+  		imageElement.className = newElement.id;
+   	} 
+  	
+};
+Lightbox.prototype.next = function(nextbtn) {
+	var imageElement,newElement;
+   	imageElement = nextbtn.parentElement.nextSibling;
+    currentId = imageElement.className;
+	newElement = document.getElementById(Number(currentId)+1);
+	if(newElement !== null) {
+		imageElement.src = newElement.src;
+		imageElement.className = newElement.id;
+	}
+};
 
-
-Lightbox.prototype.showLeftNavigation = function() {
-	if (typeof(document.getElementById('prev')) != 'undefined' && document.getElementById('prev') != null) {
+Lightbox.prototype.showLeftNavigation = function(eleObj) {
+	var imgId = eleObj.nextSibling.nextSibling.className;
+	if (typeof(document.getElementById('prev')) !== 'undefined' && document.getElementById('prev') !== null && imgId > 0) {
 		document.getElementById('prev').style.display = 'block';
 		document.getElementById('next').style.display = 'none';
 	}
-}
-Lightbox.prototype.showRightNavigation = function() {
-	if (typeof(document.getElementById('next')) != 'undefined' && document.getElementById('next') != null) {
-		document.getElementById('next').style.display = 'block';
-		document.getElementById('prev').style.display = 'none';
+};
+Lightbox.prototype.showRightNavigation = function(rightNavObj) {
+	var _this = this,imgId;
+	var imgId = rightNavObj.nextSibling.className;
+	if (typeof(document.getElementById('next')) !== 'undefined' && document.getElementById('next') !== null) {
+		if(this.imageArray.length-1 == Number(imgId))  {
+			document.getElementById('next').style.display = 'none';
+		}
+		else {			
+			document.getElementById('next').style.display = 'block';
+			document.getElementById('prev').style.display = 'none';
+		}
 	}
+	
 }
