@@ -114,26 +114,38 @@ a {
 #content {  
   margin-left: 200px;
 }
-.lbnav {
-	height: 100%;
-	left: 0;
-	position: absolute;
-	top: 0;
-	width: 100%;
-	z-index: 10;
-}
+
 a.next {
 	float:right;
 	right:20px;
 	top:200px;	
 	position:relative;
 }
-div.lbnav a:hover{
-	display:block;
+div.lightbox {
+	display: inline-block;
+}
+.next:hover{
+	visibility:visible;
 }
 .prev:hover {
 	display:block;
 }
+.leftNav {
+	width:200px;
+	height:500px;
+	position:absolute;
+	float:left;
+	left:0;
+}
+
+.rightNav {
+	width:200px;
+	height:500px;
+	position:absolute;
+	float:right;
+	right:0;
+}
+
 a.prev {
 	float:left;
 	left:20px;
