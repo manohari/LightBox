@@ -89,6 +89,8 @@ imageRow {
 	background-color:#EEEEEE;
 	padding:10px;
 	border:2px solid #666666;
+	height:auto;
+	width: auto;
 	
 }
 
@@ -112,3 +114,32 @@ a {
 #content {  
   margin-left: 200px;
 }
+.lbnav {
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 10;
+}
+a.next {
+	float:right;
+	right:20px;
+	top:200px;	
+	position:relative;
+}
+div.lbnav a:hover{
+	display:block;
+}
+.prev:hover {
+	display:block;
+}
+a.prev {
+	float:left;
+	left:20px;
+	top:200px;
+	position:relative;
+	
+}
+
+
